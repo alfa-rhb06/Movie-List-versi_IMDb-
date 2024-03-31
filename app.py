@@ -23,12 +23,11 @@ def home():
 
 @app.route("/movie", methods=["POST"])
 def movie_post():
-  # sample_receive = request.form['sample_give']
   url_receive = request.form['url_give']
   star_receive = request.form['star_give']
   comment_receive = request.form['comment_give']
 
-  headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+  headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
   data = requests.get(url_receive, headers=headers)
 
   soup = BeautifulSoup(data.text, 'html.parser')
@@ -42,11 +41,11 @@ def movie_post():
   description = og_description['content']
    
   doc = {
-    'gambar': image,
-    'judul': title,
+    'image': image,
+    'title': title,
     'description': description,
-    'Bintang': star_receive,
-    'Komentar': comment_receive,
+    'star': star_receive,
+    'comment': comment_receive,
   }
 
   db.movies.insert_one(doc)
